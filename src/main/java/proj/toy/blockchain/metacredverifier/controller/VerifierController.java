@@ -1,7 +1,7 @@
 package proj.toy.blockchain.metacredverifier.controller;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +24,9 @@ public class VerifierController {
 
 
 @Builder
-@AllArgsConstructor
+@Getter
 class VerifiedCredentialResponse {
      public static VerifiedCredentialResponse from(final VerifiedCredentialDomain verifiedCredentialDomain) {
-        return new VerifiedCredentialResponse();
+        return VerifiedCredentialResponse.builder().build();
     }
 }
