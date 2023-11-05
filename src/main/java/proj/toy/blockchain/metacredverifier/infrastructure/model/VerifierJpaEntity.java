@@ -1,8 +1,6 @@
 package proj.toy.blockchain.metacredverifier.infrastructure.model;
 
-import lombok.Builder;
 import lombok.Getter;
-import proj.toy.blockchain.metacredverifier.domain.VerifierDomain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
