@@ -13,7 +13,7 @@ public class VerifierJpaEntity {
     @GeneratedValue
     private Long id;
 
-    public static VerifierJpaEntity from(final VerifierDomain verifierDomain) {
+    public static VerifierJpaEntity from() {
         return new VerifierJpaEntity();
     }
 }

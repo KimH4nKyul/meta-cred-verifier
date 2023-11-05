@@ -1,3 +1,3 @@
 vdr:
   metadium:
-    resolver-url: https://testnetresolver.metadium.com/1.0/
+    resolver-url: ${METADIUM_DID_RESOLVER_URL}
