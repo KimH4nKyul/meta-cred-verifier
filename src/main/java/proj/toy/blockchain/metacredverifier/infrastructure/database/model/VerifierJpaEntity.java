@@ -1,4 +1,4 @@
-package proj.toy.blockchain.metacredverifier.infrastructure.model;
+package proj.toy.blockchain.metacredverifier.infrastructure.database.model;
 
 import lombok.Getter;
 
