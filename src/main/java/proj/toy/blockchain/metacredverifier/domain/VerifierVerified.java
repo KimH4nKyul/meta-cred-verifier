@@ -1,4 +1,4 @@
 package proj.toy.blockchain.metacredverifier.domain;
 
-public class VerifiedCredentialDomain {
+public class VerifierVerified {
 }

@@ -1,14 +1,12 @@
 package proj.toy.blockchain.metacredverifier.controller;
 
-import lombok.Builder;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import proj.toy.blockchain.metacredverifier.controller.dto.request.DidAndPresentation;
 import proj.toy.blockchain.metacredverifier.controller.usecase.VerifierUseCase;
-import proj.toy.blockchain.metacredverifier.domain.VerifiedCredentialDomain;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/verifier")
@@ -16,17 +14,15 @@ import proj.toy.blockchain.metacredverifier.domain.VerifiedCredentialDomain;
 public class VerifierController {
     private final VerifierUseCase verifierUseCase;
 
-    @PostMapping(value = "/verify-credential")
-    public ResponseEntity<VerifiedCredentialResponse> verify() {
-        return ResponseEntity.ok(VerifiedCredentialResponse.from(verifierUseCase.verify()));
+    @PostMapping(value = "/{did}/verify-presentation")
+    public ResponseEntity<Void> verify(@PathVariable final String did, @Valid @RequestBody final DidAndPresentation presentation) {
+        verifierUseCase.verify(
+                did,
+                presentation.getPresentation()
+        );
+
+        return (ResponseEntity<Void>) ResponseEntity.ok();
     }
 }
 
 
-@Builder
-@Getter
-class VerifiedCredentialResponse {
-     public static VerifiedCredentialResponse from(final VerifiedCredentialDomain verifiedCredentialDomain) {
-        return VerifiedCredentialResponse.builder().build();
-    }
-}

@@ -1,7 +1,7 @@
 package proj.toy.blockchain.metacredverifier.controller.usecase;
 
-import proj.toy.blockchain.metacredverifier.domain.VerifiedCredentialDomain;
+import proj.toy.blockchain.metacredverifier.domain.VerifierVerified;
 
 public interface VerifierUseCase {
-    VerifiedCredentialDomain verify();
+    VerifierVerified verify(final String did, final String presentation);
 }
