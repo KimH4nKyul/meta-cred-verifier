@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import proj.toy.blockchain.metacredverifier.controller.usecase.VerifierUseCase;
 import proj.toy.blockchain.metacredverifier.service.port.DidVerifierPort;
-import proj.toy.blockchain.metacredverifier.service.port.IVerifierRepository;
+import proj.toy.blockchain.metacredverifier.service.port.VerifierRepositoryPort;
 
 @Service
 @RequiredArgsConstructor
 public class VerifierService implements VerifierUseCase {
 
-    private final IVerifierRepository verifierRepository;
+    private final VerifierRepositoryPort verifierRepository;
     private final DidVerifierPort didVerifier;
 
     @Override

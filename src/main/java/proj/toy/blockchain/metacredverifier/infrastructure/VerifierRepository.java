@@ -3,11 +3,11 @@ package proj.toy.blockchain.metacredverifier.infrastructure;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import proj.toy.blockchain.metacredverifier.infrastructure.model.VerifierJpaRepository;
-import proj.toy.blockchain.metacredverifier.service.port.IVerifierRepository;
+import proj.toy.blockchain.metacredverifier.service.port.VerifierRepositoryPort;
 
 @Repository
 @RequiredArgsConstructor
-public class VerifierRepository implements IVerifierRepository {
+public class VerifierRepository implements VerifierRepositoryPort {
 
     private final VerifierJpaRepository verifierJpaRepository;
 

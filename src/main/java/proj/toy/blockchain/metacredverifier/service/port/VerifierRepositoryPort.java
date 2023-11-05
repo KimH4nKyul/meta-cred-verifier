@@ -1,5 +1,5 @@
 package proj.toy.blockchain.metacredverifier.service.port;
 
-public interface IVerifierRepository {
+public interface VerifierRepositoryPort {
     public void save();
 }
