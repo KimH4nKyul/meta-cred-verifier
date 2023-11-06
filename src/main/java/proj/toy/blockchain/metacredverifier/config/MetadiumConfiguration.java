@@ -15,6 +15,5 @@ public class MetadiumConfiguration {
     @PostConstruct
     void initResolver() {
         DIDResolverAPI.getInstance().setResolverUrl(metadiumConfigurationProps.getResolver());
-        System.out.println(metadiumConfigurationProps.getResolver());
     }
 }

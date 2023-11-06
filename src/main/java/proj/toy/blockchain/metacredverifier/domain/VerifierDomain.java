@@ -5,18 +5,20 @@ import lombok.Getter;
 import proj.toy.blockchain.metacredverifier.service.port.DidVerifierPort;
 import proj.toy.blockchain.metacredverifier.service.port.HashHolder;
 
+import java.util.UUID;
+
 @Getter
 public
 class VerifierDomain {
-    private final String uuid;
+    private final UUID id;
     private final String did;
     private final String presentation;
     private final String hash;
     private final boolean verified;
 
     @Builder
-    public VerifierDomain(String uuid, String did, String presentation, String hash, boolean verified) {
-        this.uuid = uuid;
+    public VerifierDomain(UUID id, String did, String presentation, String hash, boolean verified) {
+        this.id = id;
         this.did = did;
         this.presentation = presentation;
         this.hash = hash;

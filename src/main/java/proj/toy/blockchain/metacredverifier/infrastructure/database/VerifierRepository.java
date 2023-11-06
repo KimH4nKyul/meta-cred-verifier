@@ -7,6 +7,9 @@ import proj.toy.blockchain.metacredverifier.infrastructure.database.model.Verifi
 import proj.toy.blockchain.metacredverifier.infrastructure.database.model.VerifierJpaRepository;
 import proj.toy.blockchain.metacredverifier.service.port.VerifierRepositoryPort;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 @RequiredArgsConstructor
 public class VerifierRepository implements VerifierRepositoryPort {
@@ -17,5 +20,10 @@ public class VerifierRepository implements VerifierRepositoryPort {
     @Override
     public VerifierDomain save(VerifierDomain verifier) {
         return verifierJpaRepository.save(VerifierJpaEntity.from(verifier)).toDomain();
+    }
+
+    @Override
+    public Optional<VerifierDomain> findById(UUID id) {
+        return verifierJpaRepository.findById(id).map(VerifierJpaEntity::toDomain);
     }
 }

@@ -46,7 +46,7 @@ public class VerifierJpaEntity {
 
     public VerifierDomain toDomain() {
         return VerifierDomain.builder()
-                .uuid(this.id.toString())
+                .id(this.id)
                 .did(this.did)
                 .hash(this.hash)
                 .verified(this.verified)

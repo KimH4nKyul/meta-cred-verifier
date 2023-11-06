@@ -8,6 +8,7 @@ import proj.toy.blockchain.metacredverifier.controller.dto.response.VerifiedPres
 import proj.toy.blockchain.metacredverifier.controller.usecase.VerifierUseCase;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/verifier")
@@ -17,7 +18,25 @@ public class VerifierController {
 
     @PostMapping(value = "/verify-presentation")
     public ResponseEntity<VerifiedPresentation> verify(@Valid @RequestBody final DidAndPresentation request) {
-        return ResponseEntity.ok(VerifiedPresentation.from(verifierUseCase.verify(request.getDid(), request.getPresentation())));
+        return ResponseEntity.ok(
+                VerifiedPresentation.from(
+                        verifierUseCase.verify(
+                                request.getDid(),
+                                request.getPresentation()
+                        )
+                )
+        );
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<VerifiedPresentation> findById(@PathVariable String id) {
+        return ResponseEntity.ok(
+                VerifiedPresentation.from(
+                        verifierUseCase.findById(
+                                UUID.fromString(id)
+                        )
+                )
+        );
     }
 }
 
