@@ -6,6 +6,8 @@ import com.metadium.vc.VerifiablePresentation;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import proj.toy.blockchain.metacredverifier.domain.exception.NoSuchExpirationException;
+import proj.toy.blockchain.metacredverifier.domain.exception.VerificationException;
 import proj.toy.blockchain.metacredverifier.service.port.DidVerifierPort;
 
 import java.io.IOException;
@@ -14,11 +16,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @Component
-@RequiredArgsConstructor
 class MetadiumDidVerifier implements DidVerifierPort {
-
-    private final Verifier verifier;
-
     @Override
     public boolean verify(String presentation) {
         return validatePresentation(presentation) && validateCredentials(presentation);
@@ -52,9 +50,10 @@ class MetadiumDidVerifier implements DidVerifierPort {
 
     private boolean isVerified(SignedJWT jwt) {
         try {
+            final Verifier verifier = new Verifier();
             return verifier.verify(jwt);
         } catch (IOException | DidException e) {
-            throw new RuntimeException(e);
+            throw new VerificationException();
         }
     }
 
@@ -62,7 +61,7 @@ class MetadiumDidVerifier implements DidVerifierPort {
         try {
             return expiration(jwt.getJWTClaimsSet().getExpirationTime());
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new NoSuchExpirationException();
         }
     }
 

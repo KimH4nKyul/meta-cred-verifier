@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proj.toy.blockchain.metacredverifier.controller.dto.request.DidAndPresentation;
+import proj.toy.blockchain.metacredverifier.controller.dto.response.VerifiedPresentation;
 import proj.toy.blockchain.metacredverifier.controller.usecase.VerifierUseCase;
 
 import javax.validation.Valid;
@@ -14,14 +15,9 @@ import javax.validation.Valid;
 public class VerifierController {
     private final VerifierUseCase verifierUseCase;
 
-    @PostMapping(value = "/{did}/verify-presentation")
-    public ResponseEntity<Void> verify(@PathVariable final String did, @Valid @RequestBody final DidAndPresentation presentation) {
-        verifierUseCase.verify(
-                did,
-                presentation.getPresentation()
-        );
-
-        return (ResponseEntity<Void>) ResponseEntity.ok();
+    @PostMapping(value = "/verify-presentation")
+    public ResponseEntity<VerifiedPresentation> verify(@Valid @RequestBody final DidAndPresentation request) {
+        return ResponseEntity.ok(VerifiedPresentation.from(verifierUseCase.verify(request.getDid(), request.getPresentation())));
     }
 }
 
