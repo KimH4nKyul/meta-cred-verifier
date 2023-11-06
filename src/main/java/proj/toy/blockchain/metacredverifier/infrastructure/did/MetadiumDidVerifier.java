@@ -4,51 +4,54 @@ import com.metadium.did.exception.DidException;
 import com.metadium.did.verifiable.Verifier;
 import com.metadium.vc.VerifiablePresentation;
 import com.nimbusds.jwt.SignedJWT;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import proj.toy.blockchain.metacredverifier.domain.DidDocumentType;
-import proj.toy.blockchain.metacredverifier.domain.exception.ExpirationException;
-import proj.toy.blockchain.metacredverifier.domain.exception.VerificationException;
 import proj.toy.blockchain.metacredverifier.service.port.DidVerifierPort;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 class MetadiumDidVerifier implements DidVerifierPort {
+
+    private final Verifier verifier;
 
     @Override
     public boolean verify(String presentation) {
-        validatePresentation(presentation);
-        validateCredentials(toVerifiablePresentation(presentation));
-        return true;
+        return validatePresentation(presentation) && validateCredentials(presentation);
     }
 
-    private void validateCredentials(VerifiablePresentation vp) {
-        for (Object credential : vp.getVerifiableCredentials())
-            validate(toSignedJwt((String) credential), DidDocumentType.CREDENTIAL);
+    private boolean validateCredentials(String presentation) {
+        return credentials(presentation).stream()
+                .map(String.class::cast)
+                .allMatch(credential -> validate(toSignedJwt(credential)));
     }
 
-    private void validatePresentation(String presentation) {
-        validate(toSignedJwt(presentation), DidDocumentType.PRESENTATION);
+    private Collection<Object> credentials(String presentation) {
+        return toVerifiablePresentation(presentation).getVerifiableCredentials();
     }
 
-    private void validate(SignedJWT jwt, DidDocumentType didDocumentType) {
-        validateExpiration(jwt, didDocumentType);
-        validateToken(jwt, didDocumentType);
+    private boolean validatePresentation(String presentation) {
+        return validate(toSignedJwt(presentation));
     }
 
-    private void validateExpiration(SignedJWT jwt, DidDocumentType didDocumentType) {
-        if (isExpired(jwt)) throw new ExpirationException(didDocumentType);
+    private boolean validate(SignedJWT jwt) {
+        return validateExpiration(jwt) && validateToken(jwt);
     }
 
-    private void validateToken(SignedJWT jwt, DidDocumentType didDocumentType) {
-        if (!isVerified(jwt)) throw new VerificationException(didDocumentType);
+    private boolean validateExpiration(SignedJWT jwt) {
+        return !isExpired(jwt);
+    }
+
+    private boolean validateToken(SignedJWT jwt) {
+        return isVerified(jwt);
     }
 
     private boolean isVerified(SignedJWT jwt) {
         try {
-            final Verifier verifier = new Verifier();
             return verifier.verify(jwt);
         } catch (IOException | DidException e) {
             throw new RuntimeException(e);
