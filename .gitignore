@@ -38,3 +38,5 @@ out/
 
 ### Environment ###
 application-*.properties
+docker/
+
