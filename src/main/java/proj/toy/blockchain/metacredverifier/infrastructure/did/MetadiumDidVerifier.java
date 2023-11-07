@@ -4,7 +4,6 @@ import com.metadium.did.exception.DidException;
 import com.metadium.did.verifiable.Verifier;
 import com.metadium.vc.VerifiablePresentation;
 import com.nimbusds.jwt.SignedJWT;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import proj.toy.blockchain.metacredverifier.domain.exception.NoSuchExpirationException;
 import proj.toy.blockchain.metacredverifier.domain.exception.VerificationException;
