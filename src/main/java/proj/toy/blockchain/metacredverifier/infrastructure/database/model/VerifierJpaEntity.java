@@ -15,7 +15,7 @@ import java.util.UUID;
 @Table(name = "t_verifier")
 public class VerifierJpaEntity {
     @Id
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(columnDefinition = "BINARY(16)", updatable = false, nullable = false)
     private UUID id;
 
     private String did;
