@@ -1,3 +1,0 @@
-vdr:
-  metadium:
-    resolver-url: ${METADIUM_DID_RESOLVER_URL}

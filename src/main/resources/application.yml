@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_DATASOURCE_URL}
+    username: ${MYSQL_DATASOURCE_USERNAME}
+    password: ${MYSQL_DATASOURCE_PASSWORD}
+    show-sql: false
+logging:
+  level:
+    org.hibernate.sql: ERROR
+    org.hibernate.type: ERROR
+server:
+  port: 8081
+vdr:
+  metadium:
+    resolver-url: ${METADIUM_DID_RESOLVER_URL}
