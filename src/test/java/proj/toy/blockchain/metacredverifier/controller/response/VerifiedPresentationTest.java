@@ -1,4 +1,4 @@
-package proj.toy.blockchain.metacredverifier.controller;
+package proj.toy.blockchain.metacredverifier.controller.response;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
