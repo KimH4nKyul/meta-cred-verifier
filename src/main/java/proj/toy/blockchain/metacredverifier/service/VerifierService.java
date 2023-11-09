@@ -1,5 +1,6 @@
 package proj.toy.blockchain.metacredverifier.service;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import proj.toy.blockchain.metacredverifier.service.port.VerifierRepositoryPort;
 import java.util.UUID;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class VerifierService implements VerifierUseCase {
 
