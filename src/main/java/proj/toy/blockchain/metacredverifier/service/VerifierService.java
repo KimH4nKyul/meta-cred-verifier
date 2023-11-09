@@ -31,7 +31,6 @@ public class VerifierService implements VerifierUseCase {
     }
 
     @Override
-    @Transactional
     public VerifierDomain findById(UUID id) {
         return verifierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
