@@ -1,5 +1,9 @@
 package proj.toy.blockchain.metacredverifier.infrastructure.database.model;
 
+import com.fasterxml.uuid.Generators;
+import com.fasterxml.uuid.TimestampSynchronizer;
+import com.fasterxml.uuid.UUIDTimer;
+import com.fasterxml.uuid.impl.TimeBasedGenerator;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +11,8 @@ import lombok.NoArgsConstructor;
 import proj.toy.blockchain.metacredverifier.domain.VerifierDomain;
 
 import javax.persistence.*;
+import java.io.IOException;
+import java.util.Random;
 import java.util.UUID;
 
 @Entity
@@ -26,7 +32,7 @@ public class VerifierJpaEntity {
 
     @PrePersist
     public void initUuid() {
-        if( id == null ) id = UUID.randomUUID();
+        if( id == null ) id = Generators.timeBasedGenerator().generate();
     }
 
     @Builder
