@@ -1,5 +1,6 @@
 package proj.toy.blockchain.metacredverifier.controller.response;
 
+import com.fasterxml.uuid.Generators;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import proj.toy.blockchain.metacredverifier.controller.dto.response.VerifiedPresentation;
@@ -14,7 +15,7 @@ public class VerifiedPresentationTest {
     @Test
     void can_create_response_from_verifier_domain() throws Exception {
         // given
-        UUID id = UUID.randomUUID();
+        UUID id = Generators.timeBasedGenerator().generate();
 
         // when
         VerifiedPresentation resposne = VerifiedPresentation.from(
