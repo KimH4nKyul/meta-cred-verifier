@@ -1,10 +1,11 @@
-package proj.toy.blockchain.metacredverifier.controller;
+package proj.toy.blockchain.metacredverifier.small.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import proj.toy.blockchain.metacredverifier.controller.VerifierController;
 import proj.toy.blockchain.metacredverifier.controller.dto.request.DidAndPresentation;
 import proj.toy.blockchain.metacredverifier.controller.dto.response.VerifiedPresentation;
 import proj.toy.blockchain.metacredverifier.domain.VerifierDomain;
@@ -47,6 +48,29 @@ public class VerifierControllerTest {
             assertEquals("did:meta:1234", response.getBody().getDid());
             assertEquals("hash", response.getBody().getHash());
             assertTrue(response.getBody().isVerified());
+        });
+    }
+    
+    @DisplayName("can_not_verify")
+    @Test
+    void canNotVerify() throws Exception {
+        // given
+        DidAndPresentation didAndPresentation = new DidAndPresentation();
+        didAndPresentation.setDid("did:meta:1234");
+        didAndPresentation.setPresentation("fail1234");
+
+
+        // when
+        ResponseEntity<VerifiedPresentation> response = verifierController.verify(didAndPresentation);
+
+
+        // then
+        assertAll(() -> {
+            assertEquals(HttpStatus.OK, response.getStatusCode());
+            assertNotNull(response.getBody().getId());
+            assertEquals("did:meta:1234", response.getBody().getDid());
+            assertEquals("hash", response.getBody().getHash());
+            assertFalse(response.getBody().isVerified());
         });
     }
 

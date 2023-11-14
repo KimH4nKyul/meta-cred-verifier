@@ -1,4 +1,4 @@
-package proj.toy.blockchain.metacredverifier.service;
+package proj.toy.blockchain.metacredverifier.small.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +9,7 @@ import proj.toy.blockchain.metacredverifier.domain.VerifierDomain;
 import proj.toy.blockchain.metacredverifier.mock.TestDidVerifier;
 import proj.toy.blockchain.metacredverifier.mock.TestHashHolder;
 import proj.toy.blockchain.metacredverifier.mock.TestVerifierRepository;
+import proj.toy.blockchain.metacredverifier.service.VerifierService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,6 +41,18 @@ class VerifierUseCaseTest {
         assertAll(() -> {
             assertTrue(verifier.isVerified());
         });
+    }
+
+    @DisplayName("can_not_verify")
+    @Test
+    void canNotVerify() throws Exception {
+        // given
+        VerifierDomain failVerifier = verifierUseCase.verify(this.did, "a failure value");
+
+        // when
+
+        // then
+        assertAll();
     }
 
     @DisplayName("can_get_verifier")

@@ -1,4 +1,4 @@
-package proj.toy.blockchain.metacredverifier.controller.response;
+package proj.toy.blockchain.metacredverifier.small.controller.response;
 
 import com.fasterxml.uuid.Generators;
 import org.junit.jupiter.api.DisplayName;

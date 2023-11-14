@@ -1,13 +1,14 @@
-package proj.toy.blockchain.metacredverifier.domain;
+package proj.toy.blockchain.metacredverifier.small.domain;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import proj.toy.blockchain.metacredverifier.domain.VerifierDomain;
 import proj.toy.blockchain.metacredverifier.mock.TestDidVerifier;
 import proj.toy.blockchain.metacredverifier.mock.TestHashHolder;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class VerifierDomainTest {
 
@@ -37,6 +38,21 @@ public class VerifierDomainTest {
                     Assertions.assertFalse(verifier.isVerified());
                 }
         );
+    }
+
+    @DisplayName("verifier_can_not_verify")
+    @Test
+    void canNotVerify() throws Exception {
+        // given
+        VerifierDomain failVerifier = VerifierDomain.adopt(this.did, "a failure value");
+        this.verifier = failVerifier.verify(new TestDidVerifier());
+
+        // when
+
+        // then
+        assertAll(() -> {
+            assertFalse(this.verifier.isVerified());
+        });
     }
 
     @DisplayName("verifier_can_verify")
