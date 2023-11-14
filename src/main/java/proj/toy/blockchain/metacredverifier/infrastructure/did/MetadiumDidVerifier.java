@@ -5,6 +5,7 @@ import com.metadium.did.verifiable.Verifier;
 import com.metadium.vc.VerifiablePresentation;
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.stereotype.Component;
+import proj.toy.blockchain.metacredverifier.domain.exception.InvalidPresentationException;
 import proj.toy.blockchain.metacredverifier.domain.exception.NoSuchExpirationException;
 import proj.toy.blockchain.metacredverifier.domain.exception.VerificationException;
 import proj.toy.blockchain.metacredverifier.service.port.DidVerifierPort;
@@ -72,7 +73,7 @@ class MetadiumDidVerifier implements DidVerifierPort {
         try {
             return new VerifiablePresentation(toSignedJwt(presentation));
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new InvalidPresentationException();
         }
     }
 
@@ -80,7 +81,7 @@ class MetadiumDidVerifier implements DidVerifierPort {
         try {
             return SignedJWT.parse(presentation);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new InvalidPresentationException();
         }
     }
 }
